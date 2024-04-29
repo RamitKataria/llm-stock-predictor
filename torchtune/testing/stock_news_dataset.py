@@ -51,5 +51,5 @@ class StockNewsDataset(Dataset):
 
     def _prepare_labels(self, sample: Mapping[str, Any], column_map: Optional[Dict[str, str]]):
         # This method needs to extract and encode stock price changes as labels
-        stock_changes = [sample.get(column_map.get(f"Company{i}", f"Company{i}"), 0) for i in range(1, 501)]
-        return self._tokenizer.encode(stock_changes)
+        stock_change = sample.get("ticker", 0)
+        return self._tokenizer.encode(stock_change)

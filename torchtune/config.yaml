@@ -19,11 +19,11 @@ model:
 # Tokenizer
 tokenizer:
   _component_: torchtune.models.llama3.llama3_tokenizer
-  path: ./output/original/tokenizer.model
+  path: /tmp/Meta-Llama-3-8B/original/tokenizer.model
 
 checkpointer:
   _component_: torchtune.utils.FullModelMetaCheckpointer
-  checkpoint_dir: ./output/original/
+  checkpoint_dir: /tmp/Meta-Llama-3-8B/original/
   checkpoint_files: [
     consolidated.00.pth
   ]
@@ -34,8 +34,9 @@ resume_from_checkpoint: False
 
 # Dataset and Sampler
 dataset:
-  _component_: stock_news_regression_dataset
-  source : /customData/DatasetBuilder.py
+  _component_: torchtune.datasets.instruct_dataset
+  source: /customData/DatasetBuilder.py
+template: StockNewsTemplate
 seed: null
 shuffle: True
 batch_size: 2
@@ -66,7 +67,7 @@ metric_logger:
 log_every_n_steps: 1
 
 # Environment
-device: cuda
+device: mps
 dtype: fp32
 enable_activation_checkpointing: True
 

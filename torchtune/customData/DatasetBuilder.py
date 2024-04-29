@@ -33,11 +33,15 @@ def stock_news_regression_dataset(
     """
     # Dynamically generate column mappings for the company stock changes
     column_map = {
-        "news": "News",
-        "date": "Date",
-        "sentiment": "Sentiment",
-        "industry": "Industry",
-        **{f"Company{i}": f"Company{i}" for i in range(1, 501)}
+        "datetime": "datetime",
+        "url": "url",
+        "title": "title",
+        "description": "description",
+        "company": "company",
+        "ticker": "ticker",
+        "sector": "sector",
+        "industry": "industry",
+        "change_pct": "change_pct"
     }
 
     # Load the dataset from a CSV file using the Hugging Face 'datasets' library

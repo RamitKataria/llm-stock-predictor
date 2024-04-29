@@ -1,14 +1,18 @@
-from torch.utils.data import Dataset
-import torch
+
+from typing import Any, Callable, Dict, List, Mapping, Optional
+
+import numpy as np
 from datasets import load_dataset
-from torchtune.data import InstructTemplate
-from typing import Any, Dict, Mapping, Optional
+from torch.utils.data import Dataset
+
+from torchtune.data import CROSS_ENTROPY_IGNORE_IDX, InstructTemplate, Message
+
 from torchtune.modules.tokenizers import Tokenizer
+
 
 class StockNewsDataset(Dataset):
     """
-    Class to support stock news dataset for predicting stock price changes based on news articles,
-    formatted for a regression task.
+    Class to support stock news dataset for stock price prediction based on news articles.
     """
 
     def __init__(
@@ -29,15 +33,15 @@ class StockNewsDataset(Dataset):
     def __len__(self):
         return len(self._data)
 
-    def __getitem__(self, index: int) -> Dict[str, torch.Tensor]:
+    def __getitem__(self, index: int) -> Dict[str, List[int]]:
         sample = self._data[index]
         return self._prepare_sample(sample)
 
-    def _prepare_sample(self, sample: Mapping[str, Any]) -> Dict[str, torch.Tensor]:
+    def _prepare_sample(self, sample: Mapping[str, Any]) -> Dict[str, List[int]]:
         prompt = self.template.format(sample, self._column_map)
         input_ids = self._tokenizer.encode(prompt)
 
-        # Extract and convert stock price changes to a tensor for regression
+        # Assume labels are being predicted directly from the news impact (this will need customization)
         labels = self._prepare_labels(sample, self._column_map)
 
         return {
@@ -45,7 +49,7 @@ class StockNewsDataset(Dataset):
             "labels": labels
         }
 
-    def _prepare_labels(self, sample: Mapping[str, Any], column_map: Optional[Dict[str, str]]) -> torch.Tensor:
-        # This method extracts stock price changes as labels for regression
-        stock_changes = [sample.get(column_map.get(f"Company{i}", f"Company{i}"), 0.0) for i in range(1, 501)]
-        return torch.tensor(stock_changes, dtype=torch.float)
+    def _prepare_labels(self, sample: Mapping[str, Any], column_map: Optional[Dict[str, str]]):
+        # This method needs to extract and encode stock price changes as labels
+        stock_change = sample.get("ticker", 0)
+        return self._tokenizer.encode(stock_change)
