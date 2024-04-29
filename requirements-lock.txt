@@ -7,6 +7,7 @@ asttokens==2.4.1
 attrs==23.2.0
 beautifulsoup4==4.12.3
 blobfile==2.1.1
+cattrs==23.2.3
 certifi==2024.2.2
 charset-normalizer==3.3.2
 colorama==0.4.6
@@ -54,6 +55,7 @@ pyarrow==16.0.0
 pyarrow-hotfix==0.6
 pycryptodomex==3.20.0
 Pygments==2.17.2
+pyrate-limiter==2.10.0
 python-dateutil==2.9.0.post0
 pytz==2024.1
 pywin32==306
@@ -61,6 +63,8 @@ PyYAML==6.0.1
 pyzmq==26.0.2
 regex==2024.4.16
 requests==2.31.0
+requests-cache==1.2.0
+requests-ratelimiter==0.6.0
 safetensors==0.4.3
 sentencepiece==0.2.0
 six==1.16.0
@@ -79,6 +83,7 @@ traitlets==5.14.3
 transformers==4.40.1
 typing_extensions==4.11.0
 tzdata==2024.1
+url-normalize==1.4.3
 urllib3==2.2.1
 wcwidth==0.2.13
 webencodings==0.5.1

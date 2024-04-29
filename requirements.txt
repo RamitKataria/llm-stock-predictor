@@ -4,4 +4,4 @@ torchtune @ git+https://github.com/pytorch/torchtune
 transformers
 pandas
 tqdm
-yfinance
+yfinance[nospam]
